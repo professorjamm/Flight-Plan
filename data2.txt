@@ -1,0 +1,14 @@
+13
+New York|Los Angeles|237|297
+Los Angeles|Chicago|203|253
+Chicago|Houston|149|199
+Houston|Miami|97|147
+Miami|New York|53|103
+New York|Boston|82|122
+Boston|San Francisco|217|267
+San Francisco|Seattle|113|163
+Seattle|Denver|134|184
+Denver|Atlanta|142|192
+Atlanta|Dallas|119|169
+Dallas|New York|209|259
+Zaaim|Gabe|111|332

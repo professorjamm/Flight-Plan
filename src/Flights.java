@@ -4,15 +4,16 @@ import java.util.*;
 
 public class Flights
 {
-    public Flights(String filename)
+    public Flights(String dataFile, String flightPlanFile)
     {
         FlightMap flightMap = new FlightMap();
+        String littleBox = "----------------------------------------------------------------------------";
 
         Scanner scanner = null;
         try {
-            scanner = new Scanner(new File(filename));
+            scanner = new Scanner(new File(dataFile));
             int totalFlights = Integer.parseInt(scanner.nextLine());
-
+            System.out.println("\n"+littleBox);
             for (int i = 0; i < totalFlights; i++)
             {
                 String line = scanner.nextLine();
@@ -24,22 +25,42 @@ public class Flights
                 int time = Integer.parseInt(parts[3]);
 
                 int startIndex = flightMap.addCity(startCity);
-                System.out.println(parts[0] + " : " + startIndex);
+                //System.out.println(parts[0] + " : " + startIndex);
                 int endIndex = flightMap.addCity(endCity);
-                System.out.println(parts[1] + " : " + endIndex);
+                //System.out.println(parts[1] + " : " + endIndex);
+
                 DirectFlight directFlight = new DirectFlight(flightMap.getCityList().get(endIndex), cost, time);
                 flightMap.addDirectFlight(flightMap.getCityList().get(startIndex), directFlight);
-                System.out.println("Added flight from " + parts[0] + " to " + parts[1] + " with cost " + cost + " and time " + time);
-                System.out.println();
+                directFlight = new DirectFlight(flightMap.getCityList().get(startIndex), cost, time);
+                flightMap.addDirectFlight(flightMap.getCityList().get(endIndex), directFlight);
             }
-            System.out.println("Finished reading file\n\n");
+            //System.out.println("Finished reading file\n\n");
         } catch (FileNotFoundException fileNotFoundException) {
             fileNotFoundException.printStackTrace();
         }
 
-        flightMap.printCityList();
-    }
+        flightMap.printFlightMap();
+        System.out.println(littleBox);
 
-    // getters and setters
-    // ...
+        try {
+            scanner = new Scanner(new File(flightPlanFile));
+            int totalFlights = Integer.parseInt(scanner.nextLine());
+            ShortestPathAlgo shortestPathAlgo = new ShortestPathAlgo(flightMap);
+            for (int i = 0; i < totalFlights; i++)
+            {
+                String line = scanner.nextLine();
+                String[] parts = line.split("\\|");
+
+                City startCity = new City(parts[0]);
+                City endCity = new City(parts[1]);
+                char timeOrCost = parts[2].charAt(0);
+                System.out.println();
+                shortestPathAlgo.findShortestPath(startCity,endCity,timeOrCost == 'C');
+                System.out.println();
+            }
+            //System.out.println("Finished reading file\n\n");
+        } catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        }
+    }
 }

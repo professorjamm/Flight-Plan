@@ -1,7 +1,7 @@
 //class for the city objects which just stores the cities name and a list of direct flights from that city
 public class City
 {
-    private String name;
+    private final String name;
     private final LinkedList<DirectFlight> directFlights;
 
     public City(String name)
@@ -14,11 +14,6 @@ public class City
     public String getName()
     {
         return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
     }
 
     //directFlights getter

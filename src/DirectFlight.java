@@ -21,14 +21,12 @@ public class DirectFlight
         this.destination = destination;
     }
 
-    //cost getter/setter
+    //don't need setters since it won't change
+
+    //cost getter
     public double getCost()
     {
         return cost;
-    }
-    public void setCost(double cost)
-    {
-        this.cost = cost;
     }
 
     //time getter/setter
@@ -36,8 +34,9 @@ public class DirectFlight
     {
         return time;
     }
-    public void setTime(double time)
+
+    public String endCityName()
     {
-        this.time = time;
+        return destination.getName();
     }
 }

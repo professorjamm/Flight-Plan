@@ -18,7 +18,7 @@ public class FlightMap
 
     public boolean containsCity(City city)
     {
-        for(int i=0; i< cityList.size();i++)
+        for(int i=0; i<cityList.size();i++)
         {
             if(cityList.get(i).getName().equals(city.getName()))
             {
@@ -33,15 +33,7 @@ public class FlightMap
     //and the directFlight object already holds information about the endCity
     public void addDirectFlight(City startCity, DirectFlight directFlight)
     {
-        if(containsCity(directFlight.getDestination()))
-        {
-            cityList.get(duplicateIndex).addDirectFlight(directFlight);
-        }
-        LinkedList<DirectFlight> directFlightList = getDirectFlightList(startCity);
-        for(int i=0;i<directFlightList.size();i++)
-        {
-            System.out.println(directFlightList.get(i).getDestination().getName() + " " + directFlightList.get(i).getCost() + " " + directFlightList.get(i).getTime());
-        }
+        startCity.addDirectFlight(directFlight);
     }
 
     //returns a linked list of all the direct flights from a given city
@@ -55,38 +47,41 @@ public class FlightMap
         return cityList;
     }
 
-    public LinkedList<FlightPlan> mostCostEfficientPlan(City start, City end)
+    public String mostCostEfficientPlan(City start, City end)
     {
         return null;
     }
-    public LinkedList<FlightPlan> mostTimeEfficientPlan(City startCity, City endCity)
+    public String mostTimeEfficientPlan(City startCity, City endCity)
     {
         return null;
     }
 
     public void printFlightMap()
     {
-//        for (int i=0; i<cityList.size();i++)
-//        {
-//            System.out.println(cityList.get(i).getName());
-//            LinkedList<DirectFlight> directFlightList = getDirectFlightList(cityList.get(i));
-//            for (int j=0; j<directFlightList.size();j++)
-//            {
-//                System.out.print(" -> " + directFlightList.get(j).getDestination().getName() + " (Cost: " + directFlightList.get(j).getCost() + " Time: " + directFlightList.get(j).getTime() + ")");
-//            }
-//            if (i == cityList.size()-1)
-//            {
-//                System.out.println();
-//            }
-//        }
-    }
-
-    public void printCityList()
-    {
         for (int i=0; i<cityList.size();i++)
         {
-            System.out.println(cityList.get(i).getName());
+            System.out.print(cityList.get(i).getName());
+            LinkedList<DirectFlight> directFlightList = getDirectFlightList(cityList.get(i));
+            for(int j=0;j<directFlightList.size();j++)
+            {
+                System.out.print(" → ("+directFlightList.get(j).getDestination().getName() + " " + directFlightList.get(j).getCost() + " " + directFlightList.get(j).getTime()+")");
+            }
+            if(i<cityList.size()-1)
+                System.out.println("\n ↓ ");
+            else
+                System.out.println();
         }
     }
+
+    public int indexOf(String city)
+    {
+        for(int i=0; i<cityList.size();i++)
+        {
+            if(cityList.get(i).getName().equals(city))
+                return i;
+        }
+        return -1;
+    }
+
 
 }

@@ -11,6 +11,35 @@ public class LinkedList<T>
         size = 0;
     }
 
+    // Copy constructor
+    public LinkedList(LinkedList<T> list) {
+        this(); // Call the default constructor to initialize head and size
+        Node<T> current = list.head;
+        while (current != null) {
+            this.add(current.data);
+            current = current.next;
+        }
+    }
+
+    public boolean isEmpty()
+    {
+        return size == 0;
+    }
+
+    public int indexOf(T data)
+    {
+        int index = 0;
+        Node<T> current = head;
+        while(current != null) {
+            if(current.data.equals(data))
+                return index;
+            index++;
+            current = current.next;
+        }
+        return -1;
+    }
+
+
     //made node class static for memory reasons
     private static class Node<T>
     {
