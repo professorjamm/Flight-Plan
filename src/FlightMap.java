@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class FlightMap
 {
     private final LinkedList<City> cityList;
@@ -47,25 +49,14 @@ public class FlightMap
         return cityList;
     }
 
-    public String mostCostEfficientPlan(City start, City end)
-    {
-        return null;
-    }
-    public String mostTimeEfficientPlan(City startCity, City endCity)
-    {
-        return null;
-    }
-
     public void printFlightMap()
     {
         for (int i=0; i<cityList.size();i++)
         {
             System.out.print(cityList.get(i).getName());
             LinkedList<DirectFlight> directFlightList = getDirectFlightList(cityList.get(i));
-            for(int j=0;j<directFlightList.size();j++)
-            {
-                System.out.print(" → ("+directFlightList.get(j).getDestination().getName() + " " + directFlightList.get(j).getCost() + " " + directFlightList.get(j).getTime()+")");
-            }
+            for (DirectFlight directFlight : directFlightList)
+                System.out.print(" → (" + directFlight.getDestination().getName() + " " + directFlight.getCost() + " " + directFlight.getTime() + ")");
             if(i<cityList.size()-1)
                 System.out.println("\n ↓ ");
             else
@@ -76,12 +67,8 @@ public class FlightMap
     public int indexOf(String city)
     {
         for(int i=0; i<cityList.size();i++)
-        {
             if(cityList.get(i).getName().equals(city))
                 return i;
-        }
         return -1;
     }
-
-
 }

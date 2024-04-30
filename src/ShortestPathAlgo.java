@@ -28,17 +28,16 @@ public class ShortestPathAlgo
 
         City start = flightMap.getCityList().get(flightMap.indexOf(startCity.getName()));
         City end = flightMap.getCityList().get(flightMap.indexOf(endCity.getName()));
-        LinkedList<City> currPath = new LinkedList<>();
         boolean[] visited = new boolean[flightMap.getCityList().size()];
         Arrays.fill(visited, false);
 
-        LinkedList<City> currentPath = new LinkedList<City>();
+        LinkedList<City> currentPath = new LinkedList<>();
         currentPath.add(start);
 
         String stringTimeOrCost = "Cost";
         if(!findCost)
             stringTimeOrCost = "Time";
-        System.out.println("Flight "+flightPathNum+": "+ start.getName()+", "+end.getName()+"("+stringTimeOrCost+")");
+        System.out.println("Flight "+flightPathNum+": "+ start.getName()+", "+end.getName()+" ("+stringTimeOrCost+")");
         printAllPaths(currentPath,visited,start,end, totalTime, totalCost);
 
         if(path.isEmpty()){
@@ -66,7 +65,7 @@ public class ShortestPathAlgo
                 path.push(new LinkedList<>(currentPath));
                 timeStack.push(totalTime);
                 costStack.push(totalCost);
-                currentPath.remove(currentPath.size()-1);//removing last
+                currentPath.removeLast();//removing last
                 totalTime-=flightMap.getCityList().get(flightMap.indexOf(current.getName())).getDirectFlights().get(i).getTime();
                 totalCost-=flightMap.getCityList().get(flightMap.indexOf(current.getName())).getDirectFlights().get(i).getCost();
             }
@@ -78,7 +77,7 @@ public class ShortestPathAlgo
                 marked[flightMap.indexOf(adjacentCities.get(i).getName())] = true;
                 printAllPaths(currentPath, marked, flightMap.getCityList().get(flightMap.indexOf(adjacentCities.get(i).getName())), last, totalTime, totalCost);
                 marked[flightMap.indexOf(adjacentCities.get(i).getName())] = false;
-                currentPath.remove(currentPath.size()-1);//removing last
+                currentPath.removeLast();//removing last
                 totalTime-=flightMap.getCityList().get(flightMap.indexOf(current.getName())).getDirectFlights().get(i).getTime();
                 totalCost-=flightMap.getCityList().get(flightMap.indexOf(current.getName())).getDirectFlights().get(i).getCost();
             }

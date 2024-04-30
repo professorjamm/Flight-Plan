@@ -1,8 +1,8 @@
 public class DirectFlight
 {
-    private City destination;
-    private double cost;
-    private double time;
+    private final City destination;
+    private final double cost;
+    private final double time;
 
     public DirectFlight(City destination, double cost, double time)
     {
@@ -10,18 +10,13 @@ public class DirectFlight
         this.cost = cost;
         this.time = time;
     }
+    //don't need setters as everything is initialized and never changed when the text file is read in
 
-    //city getter/setter
+    //city getter
     public City getDestination()
     {
         return destination;
     }
-    public void setDestination(City destination)
-    {
-        this.destination = destination;
-    }
-
-    //don't need setters since it won't change
 
     //cost getter
     public double getCost()
@@ -33,10 +28,5 @@ public class DirectFlight
     public double getTime()
     {
         return time;
-    }
-
-    public String endCityName()
-    {
-        return destination.getName();
     }
 }
